@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ job_name }}
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      containers:
+      - name: pt-runner
+        image: {{ image }}
+        env:
+        - name: PT_RUN_JSON
+          value: '{{ pt_json }}'
+      restartPolicy: Never
